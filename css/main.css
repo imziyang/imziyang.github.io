@@ -1,0 +1,167 @@
+html, body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: Georgia, "Times New Roman", Times, "Songti SC", "SimSun", serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #555;
+  background: #fff;
+}
+a {
+  text-decoration: none;
+  color: #555;
+}
+a:hover{
+  cursor:pointer
+  -webkit-transition:color .15s linear , background-color .3s linear;
+     -moz-transition:color .15s linear , background-color .3s linear;
+      -ms-transition:color .15s linear , background-color .3s linear;
+       -o-transition:color .15s linear , background-color .3s linear;
+          transition:color .15s linear , background-color .3s linear;
+}
+
+/**
+ * util
+ */
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.clearfix:after{
+  content:'\20';
+  display:block;
+  height:0;
+  clear:both;
+}
+
+/**
+ * 主体框架
+ */
+.container {
+  position: relative;
+  width: 700px;
+  margin: 0 auto;
+  padding-top: 70px;
+}
+
+/**
+ * 左侧个人信息
+ */
+.me {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  margin-left: -530px;
+  padding-right: 20px;
+  width: 180px;
+  height: 400px;
+  text-align: right;
+  /*background: #ccc;*/
+}
+.me-avatar {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+.me-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.me-nick {
+  font-size: 23px;
+  font-weight: 500;
+  margin: 10px 0;
+}
+.me-info {
+  color: #bbb;
+}
+.me-qrcode {
+  border-radius: 3px;
+  overflow: hidden;
+}
+.me-qrcode img {
+  display: block;
+  width: 100%;
+}
+
+.main {
+  padding: 0 40px 0;
+  overflow: hidden;
+}
+
+/**
+ * 博文列表
+ */
+.list {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dotted #bbb;
+}
+.list-title {
+  display: block;
+  font-size: 24px;
+  line-height: 36px;
+}
+.list-title:hover {
+  color: #e74c3c;
+}
+.list-info {
+  font-size: 12px;
+  color: #bbb;
+  margin: 5px 0;
+}
+.list-content {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 24px;
+  color: #717171;
+}
+
+/**
+ * 文章部分css样式
+ */
+.article {
+}
+.article-title {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", Times, "Kai", "Kaiti SC", "KaiTi", "BiauKai", "楷体", "楷体_GB2312", serif;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 60px;
+}
+.article-info {
+  margin: 15px 0;
+}
+.article-content {
+  font-size: 17px;
+  font-weight: 100;
+  line-height: 30px;
+  color: #2f2f2f;
+}
+.article-like {
+  display: block;
+  margin: 0 auto;
+  width: 180px;
+  height: 50px;
+  color: #e74c3c;
+  line-height: 50px;
+  text-align: center;
+  font-size: 27px;
+  font-weight: bold;
+  border: 1px solid #e74c3c;
+  border-radius: 25px;
+}
+.article-like:hover {
+  background: #e74c3c;
+  color: #fff;
+}
