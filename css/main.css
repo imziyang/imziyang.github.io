@@ -19,10 +19,10 @@ a {
 a:hover{
   cursor:pointer
   -webkit-transition:color .15s linear , background-color .3s linear;
-     -moz-transition:color .15s linear , background-color .3s linear;
-      -ms-transition:color .15s linear , background-color .3s linear;
-       -o-transition:color .15s linear , background-color .3s linear;
-          transition:color .15s linear , background-color .3s linear;
+  -moz-transition:color .15s linear , background-color .3s linear;
+  -ms-transition:color .15s linear , background-color .3s linear;
+  -o-transition:color .15s linear , background-color .3s linear;
+  transition:color .15s linear , background-color .3s linear;
 }
 
 /**

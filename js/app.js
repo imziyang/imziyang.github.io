@@ -23,7 +23,7 @@
         templateUrl: 'view/post.html'
       })
       .when('/about', {
-        templateUrl: 'view/about.html'
+        templateUrl: 'view/about.html',
       })
       .when('/404', {
         templateUrl: 'view/404.html'
