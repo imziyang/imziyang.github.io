@@ -14,7 +14,7 @@
         controller: 'listCtrl',
         templateUrl: 'view/list.html'
       })
-      .when('/post/tag/:tag', {
+      .when('/posts/tag/:tag', {
         controller: 'tagCtrl',
         templateUrl: 'view/list.html'
       })
@@ -22,8 +22,14 @@
         controller: 'postCtrl',
         templateUrl: 'view/post.html'
       })
+      .when('/about', {
+        templateUrl: 'view/about.html'
+      })
+      .when('/404', {
+        templateUrl: 'view/404.html'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/404'
       });
 
     // $locationProvider.html5Mode(true);
