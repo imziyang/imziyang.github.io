@@ -7,7 +7,7 @@
       <a href="#/posts/tag/{{tag}}" class="list-tag" ng-repeat="tag in post.tags">{{tag}}</a>
     </div>
   </div>
-  <div class="article-content" ng-bind-html="post.content_html"></div>
+  <div class="article-content markdown" ng-bind-html="post.content_html"></div>
   <!-- <a href="#" class="article-like"><i class="fa fa-heart-o"></i>&nbsp; 赞</a> -->
   <dir-disqus disqus-shortname="imziyang"
            disqus-identifier="{{ post._id }}"
