@@ -53,6 +53,25 @@
     };
   });
 
+  app.directive('compile', ['$compile', function($compile) {
+    return {
+      link: function(scope, element, attrs) {
+        scope.$watch(
+          function(scope) {
+            return scope.$eval(attrs.compile);
+          },
+          function(value) {
+            element.html(value);
+            $compile(element.contents())(scope);
+            $('pre code').each(function(i, block) {
+              hljs.highlightBlock(block);
+            });
+          }
+        );
+      }
+    };
+  }]);
+
   app.factory('apiServ', ['$http', function($http) {
     // var apiUrl = 'http://localhost:8888';
     var apiUrl = 'http://api.ziyang.me';
