@@ -25,6 +25,9 @@
       .when('/about', {
         templateUrl: 'view/about.html',
       })
+      .when('/friend', {
+        templateUrl: 'view/friend.html',
+      })
       .when('/404', {
         templateUrl: 'view/404.html'
       })
