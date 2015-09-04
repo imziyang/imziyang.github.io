@@ -10,8 +10,9 @@
   <div class="article-content markdown" compile="post.content_html"></div>
   <!-- <a href="#" class="article-like"><i class="fa fa-heart-o"></i>&nbsp; 赞</a> -->
   <dir-disqus disqus-shortname="imziyang"
-           disqus-identifier="{{ post._id }}"
-           disqus-url="{{ url }}"
-           ready-to-bind="{{ contentLoaded }}">
+           disqus-identifier="{{post._id}}"
+           disqus-url="{{url}}"
+           disqus_title="{{post.title}}"
+           ready-to-bind="{{contentLoaded}}">
   </dir-disqus>
 </div>

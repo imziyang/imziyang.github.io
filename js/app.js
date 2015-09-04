@@ -2,13 +2,14 @@
 * ziyang.me blog
 */
 (function() {
+  'use strict';
+
   var app = angular.module('ziyang', [
     'ngRoute',
-    'ngSanitize',
-    'angularUtils.directives.dirDisqus'
+    'ngSanitize'
   ]);
 
-  app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  app.config(['$routeProvider', '$locationProvider', function($routeProvider) {
     $routeProvider
       .when('/', {
         controller: 'listCtrl',
@@ -20,7 +21,7 @@
       })
       .when('/post/:id', {
         controller: 'postCtrl',
-        templateUrl: 'view/post.html'
+        templateUrl: 'view/post.html?v=1'
       })
       .when('/about', {
         templateUrl: 'view/about.html',
@@ -56,6 +57,19 @@
     };
   });
 
+  app.directive('showNav', ['$rootScope', function($rootScope) {
+    return {
+      restrict: 'A',
+      link: function(scope, ele) {
+        ele.bind('click', function() {
+          $rootScope.$apply(function() {
+            $rootScope.showNav = !$rootScope.showNav;
+          });
+        });
+      }
+    };
+  }]);
+
   app.directive('compile', ['$compile', function($compile) {
     return {
       link: function(scope, element, attrs) {
@@ -71,6 +85,54 @@
             });
           }
         );
+      }
+    };
+  }]);
+
+  app.directive('dirDisqus', ['$window', function($window) {
+    return {
+      restrict: 'E',
+      scope: {
+        disqus_shortname: '@disqusShortname',
+        disqus_identifier: '@disqusIdentifier',
+        disqus_title: '@disqusTitle',
+        disqus_url: '@disqusUrl',
+        disqus_category_id: '@disqusCategoryId',
+        disqus_disable_mobile: '@disqusDisableMobile',
+        readyToBind: '@'
+      },
+      template: '<div id="disqus_thread"></div></a>',
+      link: function(scope) {
+        scope.$watch('readyToBind', function(isReady) {
+
+          if (!angular.isDefined(isReady)) {
+            isReady = 'true';
+          }
+          if (scope.$eval(isReady)) {
+            $window.disqus_shortname = scope.disqus_shortname;
+            $window.disqus_identifier = scope.disqus_identifier;
+            $window.disqus_title = scope.disqus_title;
+            $window.disqus_url = scope.disqus_url;
+            $window.disqus_category_id = scope.disqus_category_id;
+            $window.disqus_disable_mobile = scope.disqus_disable_mobile;
+
+            // get the remote Disqus script and insert it into the DOM, but only if it not already loaded (as that will cause warnings)
+            if (!$window.DISQUS) {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + scope.disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            } else {
+              $window.DISQUS.reset({
+                reload: true,
+                config: function () {
+                  this.page.identifier = scope.disqus_identifier;
+                  this.page.url = scope.disqus_url;
+                  this.page.title = scope.disqus_title;
+                }
+              });
+            }
+          }
+        });
       }
     };
   }]);
@@ -135,7 +197,7 @@
         } else {
           $scope.posts = data.posts;
         }
-      })
+      });
     }
   ]);
 
@@ -147,7 +209,7 @@
     function($scope, $routeParams, $location, apiServ) {
       var id = $routeParams.id;
       $scope.contentLoaded = false;
-      $scope.url = $location.absUrl();
+      $scope.url = 'http://www.ziyang.me/#/post/'+id;
       $scope.post = {};
       apiServ.get('/post/'+id, function(err, post) {
         if (err) {
