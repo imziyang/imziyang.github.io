@@ -12,8 +12,8 @@
   <link rel="apple-touch-icon-precomposed" href="http://7u2oci.com1.z0.glb.clouddn.com/avatar.jpg">
   <link rel="stylesheet" href="http://cdn.staticfile.org/normalize/3.0.1/normalize.min.css">
   <link rel="stylesheet" href="http://at.alicdn.com/t/font_1441368207_4522858.css">
-  <link rel="stylesheet" href="./css/main.css?v=3">
-  <link rel="stylesheet" href="./css/responsive.css?v=1">
+  <link rel="stylesheet" href="./css/main.css?v=4">
+  <link rel="stylesheet" href="./css/responsive.css?v=2">
   <link rel="stylesheet" href="./css/markdown.css?v=1">
   <link rel="stylesheet" href="./css/highlight.css?v=1">
   <script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
@@ -40,9 +40,17 @@
       </nav>
       <div class="me-copyright">© 2015 竹林</div>
     </div>
-    <div class="main" ng-view></div>
+    <div class="loading" ng-class="showLoading ? 'block' : '' ">
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+    <div class="main">
+      <div ng-view></div>
+    </div>
   </div>
   <script src="./js/vendor/highlight.js?v=1"></script>
-  <script src="./js/app.js?v=4"></script>
+  <script src="./js/app.js?v=5"></script>
 </body>
 </html>

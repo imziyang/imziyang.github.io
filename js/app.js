@@ -137,6 +137,17 @@
     };
   }]);
 
+  app.factory('loadServ', ['$rootScope', function($rootScope) {
+    return {
+      on: function() {
+        $rootScope.showLoading = true;
+      },
+      off: function() {
+        $rootScope.showLoading = false;
+      }
+    };
+  }]);
+
   app.factory('apiServ', ['$http', function($http) {
     // var apiUrl = 'http://localhost:8888';
     var apiUrl = 'http://api.ziyang.me';
@@ -172,9 +183,12 @@
   app.controller('listCtrl', [
     '$scope',
     'apiServ',
-    function($scope, apiServ) {
+    'loadServ',
+    function($scope, apiServ, loadServ) {
+      loadServ.on();
       $scope.posts = [];
       apiServ.get('/posts', function(err, data) {
+        loadServ.off();
         if (err) {
           console.log(err);
         } else {
@@ -188,10 +202,13 @@
     '$scope',
     '$routeParams',
     'apiServ',
-    function($scope, $routeParams, apiServ) {
+    'loadServ',
+    function($scope, $routeParams, apiServ, loadServ) {
+      loadServ.on();
       var tag = $routeParams.tag;
       $scope.posts = [];
       apiServ.get('/posts/tag/'+tag, function(err, data) {
+        loadServ.off();
         if (err) {
           console.log(err);
         } else {
@@ -206,12 +223,15 @@
     '$routeParams',
     '$location',
     'apiServ',
-    function($scope, $routeParams, $location, apiServ) {
+    'loadServ',
+    function($scope, $routeParams, $location, apiServ, loadServ) {
+      loadServ.on();
       var id = $routeParams.id;
       $scope.contentLoaded = false;
       $scope.url = 'http://www.ziyang.me/#/post/'+id;
       $scope.post = {};
       apiServ.get('/post/'+id, function(err, post) {
+        loadServ.off();
         if (err) {
           console.log(err);
         } else {
