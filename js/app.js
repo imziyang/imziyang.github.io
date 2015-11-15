@@ -142,8 +142,10 @@
   }]);
 
   app.factory('headerServ', [function() {
-    var title = '';
-    var desc = '一个自称叫竹林的家伙用来抒(mei)发(shi)情(zhao)怀(shi)，陶(dan)冶(teng)情(zhuang)操(bi)的地方';
+    var defaultTitle = '';
+    var defaultDesc = '一个自称叫竹林的家伙用来抒(mei)发(shi)情(zhao)怀(shi)，陶(dan)冶(teng)情(zhuang)操(bi)的地方';
+    var title = defaultTitle;
+    var desc = defaultDesc;
     return {
       title: function() {
         return (title ? title+'-' : '')+'竹林写字的地方';
@@ -152,8 +154,8 @@
         return desc;
       },
       setHeader: function(newTitle, newDesc) {
-        title = newTitle || title;
-        desc = newDesc || desc;
+        title = newTitle || defaultTitle;
+        desc = newDesc || defaultDesc;
       }
     };
   }]);
