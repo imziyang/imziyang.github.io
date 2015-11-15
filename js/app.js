@@ -170,8 +170,8 @@
   }]);
 
   app.factory('apiServ', ['$http', function($http) {
-    var apiUrl = 'http://localhost:8888';
-    // var apiUrl = 'http://api.ziyang.me';
+    // var apiUrl = 'http://localhost:8888';
+    var apiUrl = 'http://api.ziyang.me';
     var api = {};
 
     api.get = function(api, callback) {
