@@ -6,7 +6,8 @@
 
   var app = angular.module('ziyang', [
     'ngRoute',
-    'ngSanitize'
+    'ngSanitize',
+    'templates'
   ]);
 
   app.config(['$routeProvider', '$locationProvider', function($routeProvider) {
@@ -24,12 +25,15 @@
         templateUrl: 'view/post.html?v=1'
       })
       .when('/about', {
-        templateUrl: 'view/about.html',
+        controller: 'aboutCtrl',
+        templateUrl: 'view/about.html'
       })
       .when('/friend', {
-        templateUrl: 'view/friend.html',
+        controller: 'friendCtrl',
+        templateUrl: 'view/friend.html'
       })
       .when('/404', {
+        controller: 'notfoundCtrl',
         templateUrl: 'view/404.html'
       })
       .otherwise({
@@ -137,6 +141,23 @@
     };
   }]);
 
+  app.factory('headerServ', [function() {
+    var title = '';
+    var desc = '一个自称叫竹林的家伙用来抒(mei)发(shi)情(zhao)怀(shi)，陶(dan)冶(teng)情(zhuang)操(bi)的地方';
+    return {
+      title: function() {
+        return (title ? title+'-' : '')+'竹林写字的地方';
+      },
+      desc: function() {
+        return desc;
+      },
+      setHeader: function(newTitle, newDesc) {
+        title = newTitle || title;
+        desc = newDesc || desc;
+      }
+    };
+  }]);
+
   app.factory('loadServ', ['$rootScope', function($rootScope) {
     return {
       on: function() {
@@ -149,8 +170,8 @@
   }]);
 
   app.factory('apiServ', ['$http', function($http) {
-    // var apiUrl = 'http://localhost:8888';
-    var apiUrl = 'http://api.ziyang.me';
+    var apiUrl = 'http://localhost:8888';
+    // var apiUrl = 'http://api.ziyang.me';
     var api = {};
 
     api.get = function(api, callback) {
@@ -180,11 +201,17 @@
     return api;
   }]);
 
+  app.controller('mainCtrl', ['$scope', 'headerServ', function($scope, headerServ) {
+    $scope.header = headerServ;
+  }]);
+
   app.controller('listCtrl', [
     '$scope',
     'apiServ',
     'loadServ',
-    function($scope, apiServ, loadServ) {
+    'headerServ',
+    function($scope, apiServ, loadServ, headerServ) {
+      headerServ.setHeader();
       loadServ.on();
       $scope.posts = [];
       apiServ.get('/posts', function(err, data) {
@@ -203,9 +230,11 @@
     '$routeParams',
     'apiServ',
     'loadServ',
-    function($scope, $routeParams, apiServ, loadServ) {
+    'headerServ',
+    function($scope, $routeParams, apiServ, loadServ, headerServ) {
       loadServ.on();
       var tag = $routeParams.tag;
+      headerServ.setHeader('『'+tag+'』搜索结果');
       $scope.posts = [];
       apiServ.get('/posts/tag/'+tag, function(err, data) {
         loadServ.off();
@@ -224,7 +253,8 @@
     '$location',
     'apiServ',
     'loadServ',
-    function($scope, $routeParams, $location, apiServ, loadServ) {
+    'headerServ',
+    function($scope, $routeParams, $location, apiServ, loadServ, headerServ) {
       loadServ.on();
       var id = $routeParams.id;
       $scope.contentLoaded = false;
@@ -235,10 +265,24 @@
         if (err) {
           console.log(err);
         } else {
+          headerServ.setHeader(post.title, post.abstract);
           $scope.post = post;
           $scope.contentLoaded = true;
         }
       });
     }
   ]);
+
+  app.controller('aboutCtrl', ['headerServ', function(headerServ) {
+    headerServ.setHeader('关于我');
+  }]);
+
+  app.controller('friendCtrl', ['headerServ', function(headerServ) {
+    headerServ.setHeader('友链');
+  }]);
+
+  app.controller('notfoundCtrl', ['headerServ', function(headerServ) {
+    headerServ.setHeader('404');
+  }]);
+
 }).call(this);

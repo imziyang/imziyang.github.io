@@ -1,0 +1,25 @@
+{
+  "browser": true,
+  "node": true,
+  "devel": true,
+  "nomen": false,
+  "white": true,
+  "indent": 2,
+  "asi": false,
+  "strict": false,
+  "noempty": true,
+  "plusplus": false,
+  "esnext": true,
+  "globals": {
+    "angular": true,
+    "$": true,
+    "hljs": true
+  },
+  "globalstrict": true,
+  "expr": true,
+  "sub": true,
+  "multistr": true,
+  "onevar": false,
+  "unused": "vars",
+  "undef": true
+}
