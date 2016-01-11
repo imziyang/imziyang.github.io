@@ -21,7 +21,7 @@ var paths = {
 };
 
 gulp.task('clean', function() {
-  return del([buildRoot]);
+  return del([paths.buildRoot]);
 });
 
 gulp.task('temp', ['clean'], function() {
@@ -49,8 +49,8 @@ gulp.task('html', ['clean'], function() {
   var now = new Date().getTime();
   return gulp.src(paths.html)
     .pipe(htmlreplace({
-      'css': '/'+buildStyles+'/all.min.css?v='+now,
-      'js': ['/'+buildScripts+'/templates.js?v='+now, '/'+buildScripts+'/all.min.js?v='+now],
+      'css': '/'+paths.buildStyles+'/all.min.css?v='+now,
+      'js': ['/'+paths.buildScripts+'/templates.js?v='+now, '/'+paths.buildScripts+'/all.min.js?v='+now],
       'weinre': ''
     }))
     .pipe(rename(paths.buildHtml))
