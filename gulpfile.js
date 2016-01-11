@@ -10,6 +10,7 @@ var rename = require('gulp-rename');
 var del = require('del');
 
 var paths = {
+  cname: 'CNAME',
   html: 'index.html',
   scripts: ['js/*.js', '!js/templates.js'],
   styles: 'css/*.css',
@@ -17,11 +18,18 @@ var paths = {
   buildRoot: 'dist',
   buildScripts: 'dist/js',
   buildStyles: 'dist/css',
-  buildHtml: 'dist/index.html'
+  buildHtml: 'dist/index.html',
+  buildCname: 'dist/CNAME'
 };
 
 gulp.task('clean', function() {
   return del([paths.buildRoot]);
+});
+
+gulp.task('cname', ['clean'], function () {
+  return gulp.src(paths.cname)
+  .pipe(rename(paths.buildCname))
+  .pipe(gulp.dest('.'));
 });
 
 gulp.task('temp', ['clean'], function() {
@@ -49,17 +57,17 @@ gulp.task('html', ['clean'], function() {
   var now = new Date().getTime();
   return gulp.src(paths.html)
     .pipe(htmlreplace({
-      'css': '/'+paths.buildStyles+'/all.min.css?v='+now,
-      'js': ['/'+paths.buildScripts+'/templates.js?v='+now, '/'+paths.buildScripts+'/all.min.js?v='+now],
+      'css': '/css/all.min.css?v='+now,
+      'js': ['/js/templates.js?v='+now, '/js/all.min.js?v='+now],
       'weinre': ''
     }))
     .pipe(rename(paths.buildHtml))
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('deploy', ['temp', 'scripts', 'styles', 'html'], function() {
+gulp.task('deploy', ['temp', 'cname', 'scripts', 'styles', 'html'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages());
 });
 
-gulp.task('default', ['temp', 'scripts', 'styles', 'html', 'deploy']);
+gulp.task('default', ['temp', 'cname', 'scripts', 'styles', 'html', 'deploy']);
