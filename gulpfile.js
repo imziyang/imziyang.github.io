@@ -57,7 +57,7 @@ gulp.task('html', ['clean'], function() {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['temp', 'scripts', 'styles', 'html'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages());
 });
