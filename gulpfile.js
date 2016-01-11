@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var ghPages = require('gulp-gh-pages');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
@@ -9,18 +10,18 @@ var rename = require('gulp-rename');
 var del = require('del');
 
 var paths = {
-  html: 'index-dev.html',
+  html: 'index.html',
   scripts: ['js/*.js', '!js/templates.js'],
   styles: 'css/*.css',
   views: 'view/*.html',
-  buildRoot: 'build',
-  buildScripts: 'build/js',
-  buildStyles: 'build/css',
-  buildHtml: 'index.html'
+  buildRoot: 'dist',
+  buildScripts: 'dist/js',
+  buildStyles: 'dist/css',
+  buildHtml: 'dist/index.html'
 };
 
 gulp.task('clean', function() {
-  return del(['build']);
+  return del([buildRoot]);
 });
 
 gulp.task('temp', ['clean'], function() {
@@ -48,12 +49,17 @@ gulp.task('html', ['clean'], function() {
   var now = new Date().getTime();
   return gulp.src(paths.html)
     .pipe(htmlreplace({
-      'css': '/build/css/all.min.css?v='+now,
-      'js': ['/build/js/templates.js?v='+now, '/build/js/all.min.js?v='+now],
+      'css': '/'+buildStyles+'/all.min.css?v='+now,
+      'js': ['/'+buildScripts+'/templates.js?v='+now, '/'+buildScripts+'/all.min.js?v='+now],
       'weinre': ''
     }))
     .pipe(rename(paths.buildHtml))
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('default', ['temp', 'scripts', 'styles', 'html']);
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
+
+gulp.task('default', ['temp', 'scripts', 'styles', 'html', 'deploy']);
