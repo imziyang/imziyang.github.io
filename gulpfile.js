@@ -59,7 +59,9 @@ gulp.task('html', ['clean'], function() {
 
 gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')
-    .pipe(ghPages());
+    .pipe(ghPages({
+      branch: 'master'
+    }));
 });
 
 gulp.task('default', ['temp', 'scripts', 'styles', 'html', 'deploy']);
