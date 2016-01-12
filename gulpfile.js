@@ -12,6 +12,7 @@ var del = require('del');
 var paths = {
   cname: 'CNAME',
   html: 'index.html',
+  readme: 'README.md',
   scripts: ['js/*.js', '!js/templates.js'],
   styles: 'css/*.css',
   views: 'view/*.html',
@@ -19,7 +20,8 @@ var paths = {
   buildScripts: 'dist/js',
   buildStyles: 'dist/css',
   buildHtml: 'dist/index.html',
-  buildCname: 'dist/CNAME'
+  buildCname: 'dist/CNAME',
+  buildReadme: 'dist/README.md'
 };
 
 gulp.task('clean', function() {
@@ -29,6 +31,12 @@ gulp.task('clean', function() {
 gulp.task('cname', ['clean'], function () {
   return gulp.src(paths.cname)
   .pipe(rename(paths.buildCname))
+  .pipe(gulp.dest('.'));
+});
+
+gulp.task('readme', ['clean'], function () {
+  return gulp.src(paths.readme)
+  .pipe(rename(paths.buildReadme))
   .pipe(gulp.dest('.'));
 });
 
@@ -65,9 +73,9 @@ gulp.task('html', ['clean'], function() {
     .pipe(gulp.dest('.'));
 });
 
-gulp.task('deploy', ['temp', 'cname', 'scripts', 'styles', 'html'], function() {
+gulp.task('deploy', ['temp', 'cname', 'readme', 'scripts', 'styles', 'html'], function() {
   return gulp.src('./dist/**/*')
     .pipe(ghPages());
 });
 
-gulp.task('default', ['temp', 'cname', 'scripts', 'styles', 'html', 'deploy']);
+gulp.task('default', ['temp', 'cname', 'readme', 'scripts', 'styles', 'html', 'deploy']);
