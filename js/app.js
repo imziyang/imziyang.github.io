@@ -84,9 +84,10 @@
           function(value) {
             element.html(value);
             $compile(element.contents())(scope);
-            $('pre code').each(function(i, block) {
-              hljs.highlightBlock(block);
-            });
+            var codes = element.find('pre').find('code');
+            for (var i = 0; i < codes.length; i++) {
+              hljs.highlightBlock(codes[i]);
+            }
           }
         );
       }
