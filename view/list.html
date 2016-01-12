@@ -1,0 +1,11 @@
+<div class="list" ng-repeat="post in posts">
+  <a ng-href="/#/post/{{post._id}}" class="list-title">{{post.title}}</a>
+  <div class="list-info clearfix">
+    <div class="left"><i class="iconfont icon-history"></i> {{post.create_at | timeFormat}}</div>
+    <div class="left" ng-if="post.tags.length">
+      <i class="iconfont icon-tag"></i>
+      <a href="#/posts/tag/{{tag}}" class="list-tag" ng-repeat="tag in post.tags">{{tag}}</a>
+    </div>
+  </div>
+  <a ng-href="#/post/{{post._id}}" class="list-content">{{post.abstract}}</a>
+</div>
