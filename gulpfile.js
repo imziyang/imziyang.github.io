@@ -75,7 +75,9 @@ gulp.task('html', ['clean'], function() {
 
 gulp.task('deploy', ['temp', 'cname', 'readme', 'scripts', 'styles', 'html'], function() {
   return gulp.src('./dist/**/*')
-    .pipe(ghPages());
+    .pipe(ghPages({
+      branch: 'master'
+    }));
 });
 
 gulp.task('default', ['temp', 'cname', 'readme', 'scripts', 'styles', 'html', 'deploy']);
