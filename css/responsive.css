@@ -8,16 +8,17 @@
   }
   .me {
     top: 45px;
-    left: -101px;
-    margin-left: 0;
+    left: -100%;
+    margin: 0;
+    padding: 0;
     padding-top: 10px;
     background: #fff;
-    width: 80px;
+    width: 100%;
     height: -webkit-calc(100% - 45px);
     height: calc(100% - 45px);
-    border-right: 1px solid #eee;
     -webkit-transition: left .3s;
     transition: left .3s;
+    text-align: center;
   }
   .me_show {
     left: 0;
@@ -25,15 +26,32 @@
   .me-nav a {
     height: 40px;
     line-height: 40px;
-  }
-  .me-info {
-    display: none;
+    text-align: center;
   }
   .main {
     padding: 0 10px 0;
   }
+  .list-title,
   .article-title {
-    font-size: 35px;
-    line-height: 1.3;
+    font-size: 24px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .list-content,
+  .article-content {
+    font-size: 17px;
+    color: #47494c;
+  }
+  .markdown h1 {
+    font-size: 24px;
+  }
+  .markdown h2 {
+    font-size: 16px;
+  }
+  .markdown h3,
+  .markdown h4,
+  .markdown h5,
+  .markdown h6 {
+    font-size: 12px;
   }
 }
